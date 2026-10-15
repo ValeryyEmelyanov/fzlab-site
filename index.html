@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FZ LAB — 3D-печать и мейкерство</title>
+<meta name="description" content="FZ LAB: 3D-печать, карты CS2 в рамке, спортивные фигурки, модели на заказ. Сайт скоро откроется.">
+<meta property="og:title" content="FZ LAB — скоро открытие">
+<meta property="og:description" content="3D-печать, карты CS2 в рамке, фигурки и модели на заказ.">
+<meta property="og:image" content="https://fzlab.ru/logo.jpg">
+<link rel="icon" href="logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#07090a; --fg:#eef2ef; --muted:#9aa59e; --acc:#4cf06a; --card:#11161340; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--fg); font-family:'Golos Text',system-ui,sans-serif; min-height:100vh;
+         display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px 16px;
+         background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);
+         background-size:40px 40px; }
+  .wrap { max-width:560px; width:100%; text-align:center; }
+  img.logo { width:min(260px,62vw); border-radius:50%; box-shadow:0 0 60px #4cf06a33; }
+  h1 { font-family:'Unbounded',sans-serif; font-weight:800; font-size:clamp(34px,9vw,56px); letter-spacing:.02em; margin-top:22px; }
+  h1 span { color:var(--acc); }
+  .soon { display:inline-block; margin-top:12px; padding:6px 14px; border:1px solid var(--acc); border-radius:99px;
+          color:var(--acc); font-family:'Unbounded',sans-serif; font-size:13px; letter-spacing:.12em; text-transform:uppercase; }
+  p.lead { color:var(--muted); font-size:18px; line-height:1.5; margin:20px auto 26px; max-width:440px; }
+  ul.what { list-style:none; display:grid; gap:10px; text-align:left; margin-bottom:28px; }
+  ul.what li { background:#ffffff0a; border:1px solid #ffffff12; border-radius:14px; padding:12px 16px; font-size:16px; }
+  ul.what b { color:var(--acc); font-weight:600; }
+  .btns { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+  a.btn { text-decoration:none; font-weight:600; padding:13px 22px; border-radius:12px; font-size:16px; }
+  a.main { background:var(--acc); color:#04140a; }
+  a.sec { border:1px solid #ffffff30; color:var(--fg); }
+  a.btn:hover { filter:brightness(1.1); }
+  footer { margin-top:40px; color:#5d6862; font-size:13px; }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <img class="logo" src="logo.jpg" alt="Логотип FZ LAB">
+    <h1>FZ <span>LAB</span></h1>
+    <div class="soon">Сайт скоро откроется</div>
+    <p class="lead">Мастерская 3D-печати: делаем вещи, которые хочется поставить на полку.</p>
+    <ul class="what">
+      <li><b>Карты CS2 в рамке</b> — Mirage, Dust2 и другие, объёмные диорамы</li>
+      <li><b>Спортивные фигурки</b> — звери-атлеты: становая, жим, данк</li>
+      <li><b>Модели на заказ</b> — от идеи и чертежа до готовой вещи</li>
+    </ul>
+    <div class="btns">
+      <a class="btn main" href="https://taplink.cc/fantazer_life">Связаться</a>
+      <a class="btn sec" href="https://www.tiktok.com/@fantazer_life">TikTok</a>
+    </div>
+  </main>
+  <footer>© 2026 FZ LAB · fzlab.ru</footer>
+</body>
+</html>
