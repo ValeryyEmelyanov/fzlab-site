@@ -3,55 +3,241 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FZ LAB — 3D-печать и мейкерство</title>
-<meta name="description" content="FZ LAB: 3D-печать, карты CS2 в рамке, спортивные фигурки, модели на заказ. Сайт скоро откроется.">
-<meta property="og:title" content="FZ LAB — скоро открытие">
-<meta property="og:description" content="3D-печать, карты CS2 в рамке, фигурки и модели на заказ.">
-<meta property="og:image" content="https://fzlab.ru/logo.jpg">
-<link rel="icon" href="logo.jpg">
+<title>FZ LAB — 3D-печать, разработка и фигурки</title>
+<meta name="description" content="FZ LAB — мастерская 3D-печати инженера: серийные детали от 50 шт., разработка под ключ, большие фигурки. Fantasy. Engineered.">
+<meta property="og:title" content="FZ LAB — Fantasy. Engineered.">
+<meta property="og:description" content="Серийные детали, разработка под ключ и фигурки на 3D-принтерах. Фантазируй — мы напечатаем.">
+<meta property="og:image" content="https://fzlab.ru/branch.jpg">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600;800&family=Manrope:wght@400;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#07090a; --fg:#eef2ef; --muted:#9aa59e; --acc:#4cf06a; --card:#11161340; }
+  :root { --bg:#111018; --panel:#211E2E; --fg:#ECEAF2; --muted:#A39FB3; --vio:#8B5CF6; --teal:#14D3C2; --line:#ffffff14; }
   * { box-sizing:border-box; margin:0; padding:0; }
-  body { background:var(--bg); color:var(--fg); font-family:'Golos Text',system-ui,sans-serif; min-height:100vh;
-         display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px 16px;
-         background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);
-         background-size:40px 40px; }
-  .wrap { max-width:560px; width:100%; text-align:center; }
-  img.logo { width:min(260px,62vw); border-radius:50%; box-shadow:0 0 60px #4cf06a33; }
-  h1 { font-family:'Unbounded',sans-serif; font-weight:800; font-size:clamp(34px,9vw,56px); letter-spacing:.02em; margin-top:22px; }
-  h1 span { color:var(--acc); }
-  .soon { display:inline-block; margin-top:12px; padding:6px 14px; border:1px solid var(--acc); border-radius:99px;
-          color:var(--acc); font-family:'Unbounded',sans-serif; font-size:13px; letter-spacing:.12em; text-transform:uppercase; }
-  p.lead { color:var(--muted); font-size:18px; line-height:1.5; margin:20px auto 26px; max-width:440px; }
-  ul.what { list-style:none; display:grid; gap:10px; text-align:left; margin-bottom:28px; }
-  ul.what li { background:#ffffff0a; border:1px solid #ffffff12; border-radius:14px; padding:12px 16px; font-size:16px; }
-  ul.what b { color:var(--acc); font-weight:600; }
-  .btns { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
-  a.btn { text-decoration:none; font-weight:600; padding:13px 22px; border-radius:12px; font-size:16px; }
-  a.main { background:var(--acc); color:#04140a; }
-  a.sec { border:1px solid #ffffff30; color:var(--fg); }
-  a.btn:hover { filter:brightness(1.1); }
-  footer { margin-top:40px; color:#5d6862; font-size:13px; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--fg); font-family:'Manrope',system-ui,sans-serif; line-height:1.55; overflow-x:hidden; }
+  a { color:inherit; }
+  h1, h2, h3 { font-family:'Exo 2',sans-serif; line-height:1.1; }
+  .mono { font-family:'JetBrains Mono',monospace; }
+  .wrap { max-width:1180px; margin:0 auto; padding:0 20px; }
+
+  /* шапка */
+  header { position:fixed; inset:0 0 auto 0; z-index:10; backdrop-filter:blur(10px); background:#111018b0; border-bottom:1px solid var(--line); }
+  header .wrap { display:flex; align-items:center; gap:24px; height:64px; }
+  .brand { display:flex; align-items:center; gap:10px; text-decoration:none; font-family:'Exo 2'; font-weight:800; font-size:20px; letter-spacing:.04em; }
+  .brand img { width:34px; height:34px; }
+  nav { margin-left:auto; display:flex; gap:22px; font-size:15px; }
+  nav a { text-decoration:none; color:var(--muted); }
+  nav a:hover { color:var(--fg); }
+  .btn { display:inline-block; text-decoration:none; font-weight:600; padding:13px 24px; border-radius:12px; font-size:16px; transition:.2s; }
+  .btn.main { background:var(--teal); color:#06201d; box-shadow:0 0 0 0 #14D3C266; }
+  .btn.main:hover { box-shadow:0 0 30px 0 #14D3C266; transform:translateY(-1px); }
+  .btn.sec { border:1px solid #ffffff30; }
+  .btn.sec:hover { border-color:var(--vio); }
+  header .btn { padding:9px 16px; font-size:14px; }
+
+  /* первый экран */
+  .hero { position:relative; padding:130px 0 0; }
+  .hero .wrap { position:relative; z-index:2; width:100%; }
+  .hero-text { max-width:560px; }
+
+  /* ветка с пумой — через всю ширину страницы */
+  .branch-band { position:relative; overflow:hidden; margin-top:-85px; pointer-events:none; }
+  .branch { position:relative; width:100%; aspect-ratio:2276/520; background:url(branch.jpg) center / 100% 100% no-repeat; }
+  .branch::after { content:""; position:absolute; inset:0;
+                   background:linear-gradient(180deg,var(--bg) 0%,#11101800 18%,#11101800 82%,var(--bg) 100%); }
+  .tail { position:absolute; left:84.359%; top:61.54%; width:7.909%; height:30.77%;
+          background:url(tail.png) center / 100% 100% no-repeat; transform-origin:65% 0;
+          animation:tail 5s ease-in-out infinite; z-index:1; }
+  @keyframes tail {
+    0%, 100% { transform:rotate(0deg); }
+    20% { transform:rotate(5deg); }
+    38% { transform:rotate(-3deg); }
+    52% { transform:rotate(2deg); }
+    60%, 82% { transform:rotate(0deg); }
+    88% { transform:rotate(7deg); }
+    94% { transform:rotate(-2deg); }
+  }
+  .tag { display:inline-block; padding:5px 12px; border:1px solid #8B5CF680; border-radius:99px; color:#C4B5FD; font-size:13px; letter-spacing:.14em; text-transform:uppercase; }
+  .hero h1 { font-size:clamp(44px,7vw,84px); font-weight:800; margin:18px 0 10px; }
+  .hero h1 .f { color:var(--vio); } .hero h1 .e { color:var(--teal); }
+  .hero p.lead { color:var(--muted); font-size:19px; max-width:470px; margin-bottom:30px; }
+  .hero .btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .stats { display:flex; gap:34px; margin-top:44px; }
+  .stats b { display:block; font-family:'JetBrains Mono'; font-size:26px; color:var(--fg); }
+  .stats span { color:var(--muted); font-size:13px; }
+
+  /* секции */
+  section.block { padding:96px 0; }
+  .kicker { color:var(--teal); font-family:'JetBrains Mono'; font-size:13px; letter-spacing:.12em; text-transform:uppercase; }
+  section.block h2 { font-size:clamp(30px,4vw,44px); margin:10px 0 14px; }
+  .sub { color:var(--muted); max-width:620px; font-size:17px; }
+  .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:40px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:20px; padding:28px; position:relative; overflow:hidden; transition:.25s; }
+  .card:hover { transform:translateY(-4px); border-color:#ffffff2a; }
+  .card .ic { width:46px; height:46px; border-radius:12px; display:grid; place-items:center; font-size:22px; margin-bottom:18px; }
+  .card h3 { font-size:22px; margin-bottom:8px; }
+  .card p { color:var(--muted); font-size:15px; }
+  .card .meta { margin-top:18px; font-family:'JetBrains Mono'; font-size:12px; color:var(--teal); }
+  .eng .ic { background:#14D3C21f; } .fan .ic { background:#8B5CF62a; }
+  .fan .meta { color:#C4B5FD; }
+
+  /* модели */
+  .models { background:linear-gradient(180deg,var(--bg),#16141f 50%,var(--bg)); }
+  .cats { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:36px; }
+  .cat { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:22px 20px; text-decoration:none; display:block; transition:.2s; }
+  .cat:hover { border-color:var(--teal); }
+  .cat .e { font-size:28px; }
+  .cat h3 { font-size:18px; margin:10px 0 4px; }
+  .cat span { color:var(--muted); font-size:13px; }
+  .howto { margin-top:28px; display:grid; grid-template-columns:1.3fr 1fr; gap:18px; align-items:stretch; }
+  .howto .card ol { margin:14px 0 0 18px; color:var(--muted); }
+  .howto .card ol li { margin:6px 0; }
+  .howto .card ol b { color:var(--fg); }
+  .soon { display:flex; flex-direction:column; justify-content:center; gap:14px; }
+  .soon .id { font-family:'JetBrains Mono'; font-size:28px; color:var(--teal); }
+
+  /* как работаем / контакт */
+  .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:40px; counter-reset:s; }
+  .step { border-top:2px solid var(--line); padding-top:18px; }
+  .step::before { counter-increment:s; content:"0" counter(s); font-family:'JetBrains Mono'; color:var(--vio); font-size:14px; }
+  .step h3 { font-size:19px; margin:8px 0 6px; }
+  .step p { color:var(--muted); font-size:15px; }
+  .cta { text-align:center; padding:100px 0 120px; position:relative; }
+  .cta::before { content:""; position:absolute; left:50%; top:30%; width:520px; height:320px; transform:translate(-50%,-30%);
+                 background:radial-gradient(closest-side,#8B5CF633,transparent); pointer-events:none; }
+  .cta h2 { font-size:clamp(32px,5vw,54px); position:relative; }
+  .cta p { color:var(--muted); margin:14px auto 30px; max-width:520px; position:relative; }
+  .cta .btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; position:relative; }
+  footer { border-top:1px solid var(--line); padding:26px 0; color:#6E6A80; font-size:13px; }
+  footer .wrap { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+
+  .reveal { opacity:0; transform:translateY(24px); transition:opacity .7s, transform .7s; }
+  .reveal.in { opacity:1; transform:none; }
+
+  @media (max-width:900px) {
+    nav { display:none; }
+    .grid3, .howto { grid-template-columns:1fr; }
+    .cats, .steps { grid-template-columns:1fr 1fr; }
+    .hero { padding-top:110px; }
+    .branch-band { margin-top:-10px; }
+    .branch { width:260%; margin-left:-160%; }
+    .stats { gap:18px 26px; flex-wrap:wrap; }
+    .hero-text { max-width:100%; }
+  }
+  @media (prefers-reduced-motion:reduce) { .reveal { opacity:1; transform:none; } .tail { animation:none; } }
 </style>
 </head>
 <body>
-  <main class="wrap">
-    <img class="logo" src="logo.jpg" alt="Логотип FZ LAB">
-    <h1>FZ <span>LAB</span></h1>
-    <div class="soon">Сайт скоро откроется</div>
-    <p class="lead">Мастерская 3D-печати: делаем вещи, которые хочется поставить на полку.</p>
-    <ul class="what">
-      <li><b>Карты CS2 в рамке</b> — Mirage, Dust2 и другие, объёмные диорамы</li>
-      <li><b>Спортивные фигурки</b> — звери-атлеты: становая, жим, данк</li>
-      <li><b>Модели на заказ</b> — от идеи и чертежа до готовой вещи</li>
-    </ul>
-    <div class="btns">
-      <a class="btn main" href="https://taplink.cc/fantazer_life">Связаться</a>
-      <a class="btn sec" href="https://www.tiktok.com/@fantazer_life">TikTok</a>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="logo.svg" alt="">FZ LAB</a>
+    <nav>
+      <a href="#dir">Направления</a>
+      <a href="#models">Модели</a>
+      <a href="#how">Как работаем</a>
+    </nav>
+    <a class="btn main" href="https://t.me/Valera_Emelyanov">Заказать</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-text">
+      <span class="tag">Мастерская 3D-печати</span>
+      <h1><span class="f">Fantasy.</span><br><span class="e">Engineered.</span></h1>
+      <p class="lead">Фантазируй — мы напечатаем. Инженер с парком 10+ принтеров: от серии деталей до фигурки, которую хочется поставить на полку.</p>
+      <div class="btns">
+        <a class="btn main" href="https://t.me/Valera_Emelyanov">Обсудить задачу</a>
+        <a class="btn sec" href="#models">Каталог моделей</a>
+      </div>
+      <div class="stats">
+        <div><b>10+</b><span>принтеров FDM и фотополимер</span></div>
+        <div><b>от 50 шт.</b><span>серийные детали</span></div>
+        <div><b>0 → 1</b><span>от эскиза до изделия</span></div>
+      </div>
     </div>
-  </main>
-  <footer>© 2026 FZ LAB · fzlab.ru</footer>
+  </div>
+</section>
+
+<div class="branch-band" role="img" aria-label="Фьюзи — чёрная пума, маскот FZ LAB, лежит на ветке">
+  <div class="branch"><div class="tail"></div></div>
+</div>
+
+<section class="block" id="dir">
+  <div class="wrap">
+    <div class="kicker reveal">Направления</div>
+    <h2 class="reveal">Красиво и функционально</h2>
+    <p class="sub reveal">Дольше, чем «просто напечатать», — зато на уровне профи в каждом заказе. Честно о цене и сроках.</p>
+    <div class="grid3">
+      <div class="card eng reveal"><div class="ic">🔩</div><h3>Серийные детали</h3><p>Корпуса, крепления, оснастка, запчасти — партиями от 50 штук. Подберём пластик и подскажем, как сделать дешевле и прочнее.</p><div class="meta">для бизнеса</div></div>
+      <div class="card eng reveal"><div class="ic">📐</div><h3>Разработка под ключ</h3><p>Идея, эскиз, фото или сломанная деталь → чертёж → прототип → готовое изделие. Чертит инженер-конструктор.</p><div class="meta">идея → изделие</div></div>
+      <div class="card fan reveal"><div class="ic">🐆</div><h3>Фигурки и декор</h3><p>Большие фигурки, звери-атлеты, карты-диорамы в рамке. Многоцвет, покраска, сборка и упаковка в подарок.</p><div class="meta">для души и подарка</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block models" id="models">
+  <div class="wrap">
+    <div class="kicker reveal">Модели</div>
+    <h2 class="reveal">Выберите — напечатаем</h2>
+    <p class="sub reveal">Собираем подборки лучших моделей по категориям: у каждой будет свой номер и цена. Нашли модель сами на Printables или MakerWorld — пришлите ссылку, посчитаем.</p>
+    <div class="cats">
+      <a class="cat reveal" href="https://t.me/Valera_Emelyanov"><div class="e">✏️</div><h3>Органайзеры</h3><span>карандашницы, лотки, держатели</span></a>
+      <a class="cat reveal" href="https://t.me/Valera_Emelyanov"><div class="e">🏺</div><h3>Декор</h3><span>вазы, кашпо, светильники</span></a>
+      <a class="cat reveal" href="https://t.me/Valera_Emelyanov"><div class="e">⌚</div><h3>Подставки</h3><span>для часов, телефона, наушников</span></a>
+      <a class="cat reveal" href="https://t.me/Valera_Emelyanov"><div class="e">🗺️</div><h3>Карты в рамке</h3><span>объёмные диорамы</span></a>
+    </div>
+    <div class="howto">
+      <div class="card reveal">
+        <h3>Как заказать модель</h3>
+        <ol>
+          <li>Выберите модель в каталоге <b>или пришлите ссылку</b> на свою.</li>
+          <li>Нажмите «Заказать» — номер модели <b>FZ-…</b> подставится сам.</li>
+          <li>Подтвердим цвет, размер и срок, назовём цену <b>до</b> печати.</li>
+        </ol>
+      </div>
+      <div class="card soon reveal">
+        <div class="id">FZ-0001…</div>
+        <p style="color:var(--muted)">Первые подборки — скоро. А пока — пишите, напечатаем любую модель с разрешающей лицензией.</p>
+        <a class="btn main" href="https://t.me/Valera_Emelyanov">Прислать ссылку</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="how">
+  <div class="wrap">
+    <div class="kicker reveal">Как работаем</div>
+    <h2 class="reveal">Четыре шага</h2>
+    <div class="steps">
+      <div class="step reveal"><h3>Задача</h3><p>Пишете в Telegram: фото, эскиз, ссылка или просто идея.</p></div>
+      <div class="step reveal"><h3>Расчёт</h3><p>Материал, срок и цена — сразу и честно. Не наше — подскажем, к кому идти.</p></div>
+      <div class="step reveal"><h3>Прототип</h3><p>Для деталей — пробный образец и доводка размеров.</p></div>
+      <div class="step reveal"><h3>Готово</h3><p>Печать, обработка, упаковка. Самовывоз или доставка.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2 class="reveal">Есть идея? Напечатаем.</h2>
+    <p class="reveal">Опишите задачу в паре слов — ответим и посчитаем.</p>
+    <div class="btns reveal">
+      <a class="btn main" href="https://t.me/Valera_Emelyanov">Написать в Telegram</a>
+      <a class="btn sec" href="https://www.tiktok.com/@fantazer_life">TikTok</a>
+      <a class="btn sec" href="https://taplink.cc/fantazer_life">Все ссылки</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>© 2026 FZ LAB · fzlab.ru</span><span class="mono">Fantasy. Engineered.</span></div></footer>
+
+<script>
+  // появление блоков при скролле
+  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))), { threshold:.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
 </body>
 </html>
