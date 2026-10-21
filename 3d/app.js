@@ -1,6 +1,8 @@
 const $ = id => document.getElementById(id);
 const viewer = $('viewer'), reel = $('reel');
 let models, palette, current, brush, line, folder = [], ready = false, scrollTimer;
+let inventory = null;
+const inStock = color => inventory?.items.some(item => item?.brand === 'Bambu' && item.line === color.line && item.code === color.code && (item.stock_g === null || (typeof item.stock_g === 'number' && item.stock_g > 0))) || false;
 const configurations = new Map(), lastColors = new Map();
 const status = text => { $('status').textContent = text; };
 const button = (text, action) => { const el = document.createElement('button'); el.textContent = text; el.addEventListener('click', action); return el; };
@@ -53,7 +55,7 @@ function paint(name) {
 }
 function renderOrder() {
   const config=configurations.get(current.id);
-  $('summary').textContent=`${current.id} ${current.name} · `+current.parts.map(p=>`${p.label.toLowerCase()}: ${config[p.material].line} ${config[p.material].name}`).join(' · ');
+  $('summary').textContent=`${current.id} ${current.name} · `+current.parts.map(p=>`${p.label.toLowerCase()}: ${config[p.material].line} ${config[p.material].name}${inStock(config[p.material]) ? ' (в наличии)' : ''}`).join(' · ');
   $('parts').replaceChildren();
   current.parts.forEach(p=>{
     const c=config[p.material], el=button('',()=>paint(p.material));
@@ -89,18 +91,27 @@ function selectCenter() {
   brush={...c,line:line.name,roughness:line.roughness};lastColors.set(line.name,c.code);
   items.forEach(el=>el.setAttribute('aria-pressed',String(el===nearest)));
   $('color-bar').style.background=c.hex;$('color-name').textContent=`${line.name} · ${c.name}`;
+  $('availability').hidden=!inventory;
+  $('availability').textContent=inStock(brush)?'в наличии · отправим быстрее':'под заказ катушки, +2–3 дня';
+  $('availability').classList.toggle('available',inStock(brush));
   $('color-code').textContent=`${c.code} / ${c.hex}${c.approx?' / приблизительный цвет':''}`;
 }
 function centerSwatch(el,smooth=true) {
+  if(!el)return;
   reel.scrollTo({left:el.offsetLeft-reel.clientWidth/2+el.clientWidth/2,behavior:smooth&&!matchMedia('(prefers-reduced-motion: reduce)').matches?'smooth':'instant'});
 }
 function renderPalette(series) {
   clearTimeout(scrollTimer);line=series;
   $('tabs').replaceChildren(...palette.series.map(s=>{const el=button(s.name,()=>renderPalette(s));el.setAttribute('aria-pressed',String(s===line));return el;}));
-  reel.replaceChildren(...series.colors.map((c,i)=>{const el=button('',()=>centerSwatch(el));el.className='swatch';el.style.background=c.hex;el.dataset.index=i;el.title=`${c.name} (${c.code})`;el.setAttribute('aria-label',`${series.name} ${c.name}, ${c.code}`);return el;}));
-  const wanted=lastColors.get(series.name),index=Math.max(0,series.colors.findIndex(c=>c.code===wanted));
-  requestAnimationFrame(()=>{centerSwatch(reel.children[index],false);selectCenter();});
+  const visible=series.colors.map((c,i)=>({c,i})).filter(({c})=>!$('stock-only').checked || inStock({...c,line:series.name}));
+  reel.replaceChildren(...visible.map(({c,i})=>{const el=button('',()=>centerSwatch(el));el.className='swatch';el.style.background=c.hex;el.dataset.index=i;const available=inStock({...c,line:series.name});el.classList.toggle('in-stock',available);el.title=`${c.name} (${c.code})${available?' — в наличии':''}`;el.setAttribute('aria-label',`${series.name} ${c.name}, ${c.code}`);if(available)el.setAttribute('aria-description','In stock');return el;}));
+  $('palette-empty').hidden=visible.length>0;
+  $('palette-marker').hidden=!visible.length;
+  if(!visible.length){brush=null;$('color-name').textContent=series.name;$('color-code').textContent='Нет цветов в наличии в этой линейке';$('availability').hidden=true;$('color-bar').style.background='transparent';return;}
+  const wanted=lastColors.get(series.name),index=Math.max(0,visible.findIndex(({c})=>c.code===wanted));
+  requestAnimationFrame(()=>{if(line!==series || !reel.children[index])return;centerSwatch(reel.children[index],false);selectCenter();});
 }
+$('stock-only').addEventListener('change',()=>renderPalette(line));
 reel.addEventListener('scroll',()=>{clearTimeout(scrollTimer);scrollTimer=setTimeout(selectCenter,130);});
 reel.addEventListener('scrollend',selectCenter);
 reel.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();reel.scrollLeft+=e.deltaY;}},{passive:false});
@@ -122,6 +133,11 @@ catalogMedia.addEventListener('change',syncCatalog);syncCatalog();
 try {
   const responses=await Promise.all(['models.json','palette.json'].map(url=>fetch(url).then(r=>{if(!r.ok)throw new Error(`${url}: HTTP ${r.status}`);return r.json();})));
   [models,palette]=responses;
+  try {
+    const response=await fetch('inventory.json', {signal: AbortSignal.timeout(5000)});
+    if(response.ok){const data=await response.json();if(Array.isArray(data.items))inventory=data;}
+  } catch { /* Optional inventory: keep the original catalog usable. */ }
+  $('stock-filter').hidden=!inventory;
   if(!models.length || !palette.series?.length)throw new Error('Каталог или палитра пусты');
   const initialModel=models.find(m=>m.id===new URLSearchParams(location.search).get('id'))||models[0];
   folder=[...initialModel.category];lastColors.set('PLA Matte','11101');lastColors.set('PLA Basic','10603');renderPalette(palette.series.find(s=>s.name==='PLA Matte')||palette.series[0]);
@@ -129,4 +145,3 @@ try {
   if(matchMedia('(prefers-reduced-motion: reduce)').matches){viewer.autoRotate=false;$('rotate').textContent='Вращение: выкл.';$('rotate').setAttribute('aria-pressed','false');}
   openModel(initialModel);
 }catch(error){status(`Не удалось открыть каталог: ${error.message}. Запустите python -m http.server 8000 в папке проекта.`);}
-

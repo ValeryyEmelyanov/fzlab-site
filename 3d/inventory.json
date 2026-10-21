@@ -1,0 +1,8 @@
+{
+  "updated": "2026-10-22",
+  "note": "Black и Turquoise подтверждены Валерой. Остаток неизвестен: null означает наличие без известного веса; 0 — нет в наличии.",
+  "items": [
+    {"code":"10101","line":"PLA Basic","brand":"Bambu","stock_g":null},
+    {"code":"10605","line":"PLA Basic","brand":"Bambu","stock_g":null}
+  ]
+}
