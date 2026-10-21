@@ -1,0 +1,66 @@
+[
+  {
+    "id": "FZ-0003",
+    "name": "Подставка под телефон",
+    "category": [
+      "Для стола"
+    ],
+    "glb": "models/podstavka_telefon.glb",
+    "parts": [
+      {
+        "material": "base",
+        "label": "Основа",
+        "stl": "_архив_подставка/podstavka_telefon_base.stl"
+      },
+      {
+        "material": "relief",
+        "label": "Знак «Сопло»",
+        "stl": "_архив_подставка/podstavka_telefon_relief.stl"
+      }
+    ],
+    "group": "podstavki",
+    "preview": "previews/FZ-0003.png"
+  },
+  {
+    "id": "FZ-0001",
+    "name": "Жетон Ø40",
+    "category": [
+      "Подарки FZ LAB"
+    ],
+    "glb": "models/zheton.glb",
+    "parts": [
+      {
+        "material": "base",
+        "label": "Основа",
+        "stl": "zheton_base.stl"
+      },
+      {
+        "material": "relief",
+        "label": "Рельеф",
+        "stl": "zheton_relief.stl"
+      }
+    ],
+    "group": "gifts"
+  },
+  {
+    "id": "FZ-0002",
+    "name": "Брелок Сопло",
+    "category": [
+      "Подарки FZ LAB"
+    ],
+    "glb": "models/brelok_soplo.glb",
+    "parts": [
+      {
+        "material": "base",
+        "label": "Основа",
+        "stl": "brelok_soplo_base.stl"
+      },
+      {
+        "material": "relief",
+        "label": "Рельеф",
+        "stl": "brelok_soplo_relief.stl"
+      }
+    ],
+    "group": "gifts"
+  }
+]

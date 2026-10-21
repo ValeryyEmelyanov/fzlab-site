@@ -9,10 +9,90 @@
 <meta property="og:description" content="Серийные детали, разработка под ключ и фигурки на 3D-принтерах. Фантазируй — мы напечатаем.">
 <meta property="og:image" content="https://fzlab.ru/branch.jpg">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600;800&family=Manrope:wght@400;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/exo-2-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="branch.webp" as="image" type="image/webp" fetchpriority="high">
 <style>
+@font-face {
+  font-family: 'Exo 2';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/exo-2-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Exo 2';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/exo-2-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Exo 2';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(fonts/exo-2-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Exo 2';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(fonts/exo-2-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(fonts/jetbrains-mono-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(fonts/jetbrains-mono-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/manrope-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/manrope-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/manrope-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/manrope-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
   :root { --bg:#111018; --panel:#211E2E; --fg:#ECEAF2; --muted:#A39FB3; --vio:#8B5CF6; --teal:#14D3C2; --line:#ffffff14; }
   * { box-sizing:border-box; margin:0; padding:0; }
   html { scroll-behavior:smooth; scroll-padding-top:88px; }
@@ -44,11 +124,13 @@
 
   /* ветка с пумой — через всю ширину страницы */
   .branch-band { position:relative; overflow:hidden; width:100%; max-width:1440px; min-height:140px; max-height:330px; margin:-48px auto 0; pointer-events:none; background:radial-gradient(ellipse at 76% 45%,#211E2E80,transparent 65%); }
-  .branch { position:relative; width:100%; aspect-ratio:2276/520; background:url(branch.jpg) center / 100% 100% no-repeat; }
+  .branch { position:relative; width:100%; aspect-ratio:2276/520; background:url(branch.jpg) center / 100% 100% no-repeat;
+          background-image:image-set(url(branch.webp) type("image/webp"), url(branch.jpg) type("image/jpeg")); }
   .branch::after { content:""; position:absolute; inset:0;
                    background:linear-gradient(180deg,var(--bg) 0%,#11101800 18%,#11101800 82%,var(--bg) 100%); }
   .tail { position:absolute; left:84.359%; top:61.54%; width:7.909%; height:30.77%;
-          background:url(tail.png) center / 100% 100% no-repeat; transform-origin:65% 0;
+          background:url(tail.png) center / 100% 100% no-repeat;
+          background-image:image-set(url(tail.webp) type("image/webp"), url(tail.png) type("image/png")); transform-origin:65% 0;
           animation:tail 5s ease-in-out infinite; z-index:1; }
   @keyframes tail {
     0%, 100% { transform:rotate(0deg); }
@@ -168,7 +250,7 @@
 <body>
 <header>
   <div class="wrap">
-    <a class="brand" href="#top"><img src="logo.svg" alt="">FZ LAB</a>
+    <a class="brand" href="#top"><img src="logo.svg" width="34" height="34" fetchpriority="high" alt="">FZ LAB</a>
     <nav>
       <a href="#dir">Направления</a>
       <a href="#models">Модели</a>
@@ -222,7 +304,7 @@
     <div class="cats">
       <a class="cat reveal" href="https://t.me/Valera_Emelyanov"><div class="e">✏️</div><h3>Органайзеры</h3><span>карандашницы, лотки, держатели</span></a>
       <a class="cat reveal" href="https://t.me/Valera_Emelyanov"><div class="e">🏺</div><h3>Декор</h3><span>вазы, кашпо, светильники</span></a>
-      <a class="cat reveal" href="https://t.me/Valera_Emelyanov"><div class="e">⌚</div><h3>Подставки</h3><span>для часов, телефона, наушников</span></a>
+      <a class="cat reveal" href="models/podstavki/"><div class="e">⌚</div><h3>Подставки</h3><span>для часов, телефона, наушников</span></a>
       <a class="cat reveal" href="https://t.me/Valera_Emelyanov"><div class="e">🗺️</div><h3>Карты в рамке</h3><span>объёмные диорамы</span></a>
     </div>
     <div class="howto">
